@@ -62,6 +62,7 @@ test('. accessor', function(){
 
 test('reject injection', function(){
     a.equal(infix('+ a +'), null)
+    a.equal(infix('<< >>'), null)
 })
 
 suite('lift.prefix')
@@ -82,6 +83,7 @@ test('unary', function(){
 
 test('reject injection', function(){
     a.equal(prefix('a, void'), null)
+    a.equal(prefix('++ --'), null)
 })
 
 
@@ -94,4 +96,5 @@ test('postfix expressions', function(){
 
 test('reject injection', function(){
     a.equal(postfix('; console.log(a)'), null)
+    a.equal(postfix('-- ++'), null)
 })

@@ -1,7 +1,7 @@
 var lift = {}
 
 // infix
-var infixOps = '* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,'
+var infixOps = '* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,'.split(' ')
 
 lift.infix = function(op){
     if ( infixOps.indexOf(op) === -1 ) return null
@@ -13,7 +13,7 @@ lift.infix = function(op){
 }
 
 // prefix
-var prefixOps = 'void typeof ++ -- + - ~ ! new'
+var prefixOps = 'void typeof ++ -- + - ~ ! new'.split(' ')
 
 lift.prefix = function(op){
     if ( prefixOps.indexOf(op) === -1 ) return null 
@@ -21,7 +21,7 @@ lift.prefix = function(op){
 }
 
 // postfix
-var postfixOps = '++ --'
+var postfixOps = '++ --'.split(' ')
 
 lift.postfix = function(op){
     if ( postfixOps.indexOf(op) === -1 ) return null
