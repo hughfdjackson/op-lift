@@ -48,7 +48,7 @@ var instantiate = lift.prefix('new'),
 ;[Object, Array, Function].map(instantiate).map(type) //= [ 'object', 'object', 'function' ]
 ```
 
-#### Supported opertors:
+#### Supported operators:
 
 The supported operators are: `void typeof ++ -- + - ~ ! new`
 
