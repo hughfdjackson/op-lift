@@ -10,9 +10,10 @@ var lift = require('op-lift')
 ;[1, 2, 3, 4].reduce(lift.infix('+')) //= 10
 ```
 
-## Install 
+## Install & Test
 
-`npm install op-lift`
+install via npm: `npm install op-lift`
+test: `cd node_modules/op-lift && npm test`
 
 ## API 
 
@@ -67,6 +68,9 @@ i          //= 0
 
 The supported operators are: `++ --`
 
-## Test
+### Tastes great with..
 
-To run the test suite located in *test/op-lift-test.js*, run `npm test`
+Since the primary difference between operators and functions is that functions are first class, *op-lift* works very well with libraries heavy on the higher-order functions, including:
+
+* [tap](http://npmjs.org/package/tap-chain) - allows functions to be injected into the method chain
+* [underscore](http://npmjs.org/package/underscore) - uses functional iterators, and has standard functional partial application & composition.
