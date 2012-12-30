@@ -1,0 +1,15 @@
+{
+  "name": "prefixify",
+  "version": "0.1.0",
+  "main": "src/prefixify.js",
+  "scripts": {
+    "test": "mocha --ui qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hughfdjackson/prefixify.git"
+  },
+  "keywords": [],
+  "author": "hughfdjackson",
+  "license": "BSD"
+}
