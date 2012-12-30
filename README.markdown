@@ -7,7 +7,7 @@ Turn js operators into delicious first-class functions.
 ```javascript
 var lift = require('op-lift')
 
-[1, 2, 3, 4].reduce(lift.infix('+')) //= 10
+;[1, 2, 3, 4].reduce(lift.infix('+')) //= 10
 ```
 
 ## Install 
@@ -23,7 +23,7 @@ lift takes a string, representing an infix operator, and returns a function that
 ```javascript
 var lift = require('op-lift')
 
-[1, 2, 3, 4].reduce(lift.infix('*')) //= 24
+;[1, 2, 3, 4].reduce(lift.infix('*')) //= 24
 ```
 
 #### Supported operators:
@@ -37,14 +37,14 @@ Identical to *lift.infix*, except it returns functions taking a single argument:
 ```javascript
 var neg = lift.prefix('!')
 
-[true, false, true].map(neg) //= [ false, true, false ]
+;[true, false, true].map(neg) //= [ false, true, false ]
 ```
 
 ```javascript
 var instantiate = lift.prefix('new'),
     type        = lift.prefix('typeof')
 
-[Object, Array, Function].map(instantiate).map(type) //= [ 'object', 'object', 'function' ]
+;[Object, Array, Function].map(instantiate).map(type) //= [ 'object', 'object', 'function' ]
 ```
 
 #### Supported opertors:
