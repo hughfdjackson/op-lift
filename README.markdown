@@ -15,6 +15,8 @@ var lift = require('op-lift')
 install via npm: `npm install op-lift`
 test: `cd node_modules/op-lift && npm test`
 
+Requires an es5, or [es5-shim](https://github.com/kriskowal/es5-shim) for older engines.
+
 ## API 
 
 ### lift(String) -> Function
