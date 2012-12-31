@@ -1,9 +1,7 @@
-var lift = {}
-
 // infix
 var infixOps = '* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,'.split(' ')
 
-lift.infix = function(op){
+var infix = function(op){
     if ( infixOps.indexOf(op) === -1 ) return null
 
     if ( op === '.' )  op = 'a[b]' 
@@ -15,17 +13,28 @@ lift.infix = function(op){
 // prefix
 var prefixOps = 'void typeof ++ -- + - ~ ! new'.split(' ')
 
-lift.prefix = function(op){
+var prefix = function(op){
     if ( prefixOps.indexOf(op) === -1 ) return null 
     return Function('a', 'return ' + op + ' a')
 }
 
-// postfix
-var postfixOps = '++ --'.split(' ')
+// postfix omitted because they're useless in this form
 
-lift.postfix = function(op){
-    if ( postfixOps.indexOf(op) === -1 ) return null
-    return Function('a', 'return a ' + op)
+// special cases '+' and '-'
+var plus = function(a, b){ 
+    if ( b ) return a + b
+    else     return +a
+}
+
+var minus = function(a, b){
+    if ( b ) return a - b
+    else     return -a
+}
+
+var lift = function(op){
+    if ( op === '+' )       return plus
+    else if ( op === '-' )  return minus          
+    else                    return prefix(op) || infix(op)
 }
 
 // export

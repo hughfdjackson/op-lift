@@ -1,100 +1,77 @@
 var a       = require('assert'),
     lift    = require('../')
-    infix   = lift.infix,
-    prefix  = lift.prefix,
-    postfix = lift.postfix
 
-suite('lift.infix')
+suite('lift')
 
 test('multiplicative operators', function(){
-    a.equal(infix('*')(1, 2), 1 * 2)
-    a.equal(infix('/')(1, 2), 1 / 2)
-    a.equal(infix('%')(1, 2), 1 % 2)
-    
+    a.equal(lift('*')(1, 2), 1 * 2)
+    a.equal(lift('/')(1, 2), 1 / 2)
+    a.equal(lift('%')(1, 2), 1 % 2)
 })
 
 test('additive operators', function(){
-    a.equal(infix('+')(1, 2), 1 + 2)
-    a.equal(infix('-')(1, 2), 1 - 2)
+    a.equal(lift('+')(1, 2), 1 + 2)
+    a.equal(lift('-')(1, 2), 1 - 2)
 })
 
 test('bitwise shift operators', function(){
-    a.equal(infix('<<')(1, 2), 1 << 2)
-    a.equal(infix('>>')(1, 2), 1 >> 2)
-    a.equal(infix('>>>')(1, 2), 1 >>> 2)
+    a.equal(lift('<<')(1, 2), 1 << 2)
+    a.equal(lift('>>')(1, 2), 1 >> 2)
+    a.equal(lift('>>>')(1, 2), 1 >>> 2)
 })
 
 test('relational operators', function(){
-    a.equal(infix('<')(1, 2), 1 < 2)
-    a.equal(infix('>')(1, 2), 1 > 2)
-    a.equal(infix('<=')(1, 2), 1 <= 2)
-    a.equal(infix('>=')(1, 2), 1 >= 2)
-    a.equal(infix('instanceof')({}, Object), {} instanceof Object)
-    a.equal(infix('in')('a', { a: 1 }), 'a' in { a: 1 })
+    a.equal(lift('<')(1, 2), 1 < 2)
+    a.equal(lift('>')(1, 2), 1 > 2)
+    a.equal(lift('<=')(1, 2), 1 <= 2)
+    a.equal(lift('>=')(1, 2), 1 >= 2)
+    a.equal(lift('instanceof')({}, Object), {} instanceof Object)
+    a.equal(lift('in')('a', { a: 1 }), 'a' in { a: 1 })
 })
-
 
 test('equality operators', function(){
-    a.equal(infix('==')(1, '1'), 1 == '1')
-    a.equal(infix('!=')(1, '1'), 1 != '1')
-    a.equal(infix('===')(1, '1'), 1 === '1')
-    a.equal(infix('!==')(1, '1'), 1 !== '1')
+    a.equal(lift('==')(1, '1'), 1 == '1')
+    a.equal(lift('!=')(1, '1'), 1 != '1')
+    a.equal(lift('===')(1, '1'), 1 === '1')
+    a.equal(lift('!==')(1, '1'), 1 !== '1')
 })
 
-test('infixary bitwise operators', function(){
-    a.equal(infix('&')(1, 2), 1 & 2)
-    a.equal(infix('^')(1, 2), 1 ^ 2)
-    a.equal(infix('|')(1, 2), 1 | 2)
+test('liftary bitwise operators', function(){
+    a.equal(lift('&')(1, 2), 1 & 2)
+    a.equal(lift('^')(1, 2), 1 ^ 2)
+    a.equal(lift('|')(1, 2), 1 | 2)
 })
 
-test('infixary logic operators', function(){
-    a.equal(infix('||')(0, '1'), 0 || '1')
-    a.equal(infix('&&')(0, '1'), 0 && '1')
+test('binary logic operators', function(){
+    a.equal(lift('||')(0, '1'), 0 || '1')
+    a.equal(lift('&&')(0, '1'), 0 && '1')
 })
 
 test('comma operator', function(){
-    a.equal(infix(',')(0, '1'), (0, '1'))
+    a.equal(lift(',')(0, '1'), (0, '1'))
 })
 
 test('. accessor', function(){
-    a.equal(infix('.')({ a: 1 }, 'a'), {a: 1}.a)
+    a.equal(lift('.')({ a: 1 }, 'a'), {a: 1}.a)
 })
-
-test('reject injection', function(){
-    a.equal(infix('+ a +'), null)
-    a.equal(infix('<< >>'), null)
-})
-
-suite('lift.prefix')
 
 test('unary', function(){
-    a.equal(prefix('void')(3), void 3)
-    a.equal(prefix('typeof')(3), typeof 3)
-    a.equal(prefix('++')(3), 4)
-    a.equal(prefix('--')(3), 2)
-    a.equal(prefix('+')(-3), + -3)
-    a.equal(prefix('-')(3), -3)
-    a.equal(prefix('~')(3), ~3)
-    a.equal(prefix('!')(3), !3)
+    a.equal(lift('void')(3), void 3)
+    a.equal(lift('typeof')(3), typeof 3)
+    a.equal(lift('++')(3), 4)
+    a.equal(lift('--')(3), 2)
+    a.equal(lift('+')(-3), + -3)
+    a.equal(lift('-')(3), -3)
+    a.equal(lift('~')(3), ~3)
+    a.equal(lift('!')(3), !3)
 
     var F = function(){ this.x = 3 }
-    a.deepEqual(prefix('new')(F), new F)
+    a.deepEqual(lift('new')(F), new F)
 })
 
 test('reject injection', function(){
-    a.equal(prefix('a, void'), null)
-    a.equal(prefix('++ --'), null)
-})
-
-
-suite('lift.postfix')
-
-test('postfix expressions', function(){
-    a.equal(postfix('++')(4), 4)
-    a.equal(postfix('--')(4), 4)
-})
-
-test('reject injection', function(){
-    a.equal(postfix('; console.log(a)'), null)
-    a.equal(postfix('-- ++'), null)
+    a.equal(lift('a, void'), null)
+    a.equal(lift('++ --'), null)
+    a.equal(lift('+ a +'), null)
+    a.equal(lift('<< >>'), null)
 })
