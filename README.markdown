@@ -21,7 +21,7 @@ Requires an es5, or [es5-shim](https://github.com/kriskowal/es5-shim) for older 
 
 ### lift(String) -> Function
 
-lift takes a string, representing an operator, and returns a function that performs the same job.
+lift takes a string representing an operator, and returns a function that performs the same job.
 
 ```javascript
 var lift = require('op-lift')
@@ -32,11 +32,19 @@ var lift = require('op-lift')
 ;[Object, Array, Function].map(lift('new')).map(lift('typeof')) //= [ 'object', 'object', 'function' ]
 ```
 
+It's safe to use with arbitrary strings, too, since lift will simply return `null` for unrecognised operators:
+
+```javascript
+
+lift('; console.log(a), a +') //= null
+```
+
 #### Supported operators:
 
 The supported operators are: 
 
 prefix: `void typeof ++ -- + - ~ ! new`
+
 infix: `* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,`
 
 ### Tastes great with..
