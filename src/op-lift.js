@@ -1,7 +1,12 @@
 // infix
 var infixOps = '* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,'.split(' ')
 
-var infix = function(op){
+var infix = infixOps.reduce(function(infix, op) {
+	infix[op] = makeInfix(op)
+	return infix
+}, {})
+
+function makeInfix(op){
     if ( infixOps.indexOf(op) === -1 ) return null
 
     if ( op === '.' )  op = 'a[b]' 
@@ -13,7 +18,12 @@ var infix = function(op){
 // prefix
 var prefixOps = 'void typeof ++ -- + - ~ ! new'.split(' ')
 
-var prefix = function(op){
+var prefix = prefixOps.reduce(function(prefix, op) {
+	prefix[op] = makePrefix(op)
+	return prefix
+}, {})
+
+function makePrefix(op){
     if ( prefixOps.indexOf(op) === -1 ) return null 
     return Function('a', 'return ' + op + ' a')
 }
@@ -34,7 +44,7 @@ var minus = function(a, b){
 var lift = function(op){
     if ( op === '+' )       return plus
     else if ( op === '-' )  return minus          
-    else                    return prefix(op) || infix(op)
+    else                    return prefix[op] || infix[op]
 }
 
 // export

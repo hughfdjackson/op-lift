@@ -75,3 +75,11 @@ test('reject injection', function(){
     a.equal(lift('+ a +'), null)
     a.equal(lift('<< >>'), null)
 })
+
+test('caching', function() {
+    a.equal(lift('void'), lift('void'))
+    a.equal(lift('++'), lift('++'))
+    a.equal(lift('+'), lift('+'))
+    a.equal(lift('-'), lift('-'))
+    a.equal(lift('typeof'), lift('typeof'))
+})
