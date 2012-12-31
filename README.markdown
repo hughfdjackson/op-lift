@@ -19,12 +19,12 @@ test: `cd node_modules/op-lift && npm test`
 
 ### lift(String) -> Function
 
-lift takes a string, representing an infix operator, and returns a function that performs the same job.
+lift takes a string, representing an operator, and returns a function that performs the same job.
 
 ```javascript
 var lift = require('op-lift')
 
-;[1, 2, 3, 4].reduce(lift.infix('*')) //= 24
+;[1, 2, 3, 4].reduce(lift.('*')) //= 24
 
 ;[true, false, true].map(lift('!')) //= [ false, true, false ]
 ;[Object, Array, Function].map(lift('new')).map(lift('typeof')) //= [ 'object', 'object', 'function' ]
