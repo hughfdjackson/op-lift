@@ -26,7 +26,7 @@ lift takes a string representing an operator, and returns a function that perfor
 ```javascript
 var lift = require('op-lift')
 
-;[1, 2, 3, 4].reduce(lift.('*')) //= 24
+;[1, 2, 3, 4].reduce(lift('*')) //= 24
 
 ;[true, false, true].map(lift('!')) //= [ false, true, false ]
 ;[Object, Array, Function].map(lift('new')).map(lift('typeof')) //= [ 'object', 'object', 'function' ]
