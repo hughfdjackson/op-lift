@@ -1,7 +1,7 @@
 {
   "name": "op-lift",
   "description": "turns js operators into delicious first-class functions",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "src/op-lift.js",
   "scripts": {
     "test": "mocha --ui qunit"

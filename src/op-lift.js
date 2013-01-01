@@ -1,37 +1,38 @@
 // infix
 var infixOps = '* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,'.split(' ')
 
-var infix = infixOps.reduce(function(infix, op) {
-	infix[op] = makeInfix(op)
-	return infix
-}, {})
-
-function makeInfix(op){
+var makeInfix = function(op){
     if ( infixOps.indexOf(op) === -1 ) return null
 
-    if ( op === '.' )  op = 'a[b]' 
+    if ( op === '.' )  op = 'a[b]'
     else               op = 'a ' + op + ' b'
 
     return Function('a', 'b', 'return ' + op)
 }
 
+var infix = infixOps.reduce(function(infix, op) {
+	infix[op] = makeInfix(op)
+	return infix
+}, {})
+
+
 // prefix
 var prefixOps = 'void typeof ++ -- + - ~ ! new'.split(' ')
+
+var makePrefix = function(op){
+    if ( prefixOps.indexOf(op) === -1 ) return null 
+    return Function('a', 'return ' + op + ' a')
+}
 
 var prefix = prefixOps.reduce(function(prefix, op) {
 	prefix[op] = makePrefix(op)
 	return prefix
 }, {})
 
-function makePrefix(op){
-    if ( prefixOps.indexOf(op) === -1 ) return null 
-    return Function('a', 'return ' + op + ' a')
-}
-
 // postfix omitted because they're useless in this form
 
 // special cases '+' and '-'
-var plus = function(a, b){ 
+var plus = function(a, b){
     if ( b ) return a + b
     else     return +a
 }
@@ -43,7 +44,7 @@ var minus = function(a, b){
 
 var lift = function(op){
     if ( op === '+' )       return plus
-    else if ( op === '-' )  return minus          
+    else if ( op === '-' )  return minus
     else                    return prefix[op] || infix[op]
 }
 
