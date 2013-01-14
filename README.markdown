@@ -56,7 +56,7 @@ weirdfix: `?:`
 Since the resulting functions simply accept values as arguments, no short-circuiting can be done:
 
 ```javascript
-lift('||')(false, alert('BOO') // results in 'BOO'
+lift('||')(false, alert('BOO')) // an alert still shows up with 'BOO'
 ```
 
 #### No Updating of Variables
