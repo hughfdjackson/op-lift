@@ -47,6 +47,28 @@ prefix: `void typeof ++ -- + - ~ ! new`
 
 infix: `* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,`
 
+weirdfix: `?:`
+
+### Gotchas
+
+#### No Shortcircuiting
+
+Since the resulting functions simply accept values as arguments, no short-circuiting can be done:
+
+```javascript
+lift('||')(false, alert('BOO') // results in 'BOO'
+```
+
+#### No Updating of Variables
+
+Any operator that affects a variables' value won't in its lifted form:
+
+```javascript
+var a = 0
+lift('++')(a) // 1
+a             // 0
+```
+
 ### Tastes great with..
 
 Since the primary difference between operators and functions is that functions are first class, *op-lift* works very well with libraries heavy on the higher-order functions, including:
