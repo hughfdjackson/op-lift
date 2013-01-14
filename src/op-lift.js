@@ -31,6 +31,11 @@ var prefix = prefixOps.reduce(function(prefix, op) {
 
 // postfix omitted because they're useless in this form
 
+// ternary-if operator ?:. does not short-circuit.
+var ternary = function(condVal, ifVal, elseVal) {
+    return condVal ? ifVal : elseVal
+}
+
 // special cases '+' and '-'
 var plus = function(a, b){
     if ( b ) return a + b
@@ -45,6 +50,7 @@ var minus = function(a, b){
 var lift = function(op){
     if ( op === '+' )       return plus
     else if ( op === '-' )  return minus
+    else if ( op === '?:' ) return ternary
     else                    return prefix[op] || infix[op]
 }
 

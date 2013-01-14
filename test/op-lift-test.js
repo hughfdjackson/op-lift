@@ -69,6 +69,11 @@ test('unary', function(){
     a.deepEqual(lift('new')(F), new F)
 })
 
+test('ternary', function() {
+    a.equal(lift('?:')(true, 1, 2), 1)
+    a.equal(lift('?:')(false, 1, 2), 2)
+})
+
 test('reject injection', function(){
     a.equal(lift('a, void'), null)
     a.equal(lift('++ --'), null)
