@@ -47,6 +47,8 @@ prefix: `void typeof ++ -- + - ~ ! new`
 
 infix: `* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,`
 
+postfix: `()`
+
 weirdfix: `?:`
 
 ### Gotchas

@@ -67,6 +67,9 @@ test('unary', function(){
 
     var F = function(){ this.x = 3 }
     a.deepEqual(lift('new')(F), new F)
+    
+    var f = function(){ return 3 }
+    a.equal(lift('()')(f), f())
 })
 
 test('ternary', function() {

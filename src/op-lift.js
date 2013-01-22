@@ -1,3 +1,8 @@
+var opsToObj = function(genFn, ops){
+    var makeOp = function(o, op){ o[op] = genFn(op); return o }
+    return ops.reduce(makeOp, {})
+}
+
 // infix
 var infixOps = '* / % + - << >> >>> < > <= >= instanceof in == != === !== & ^ | || && . ,'.split(' ')
 
@@ -10,10 +15,7 @@ var makeInfix = function(op){
     return Function('a', 'b', 'return ' + op)
 }
 
-var infix = infixOps.reduce(function(infix, op) {
-	infix[op] = makeInfix(op)
-	return infix
-}, {})
+var infix = opsToObj(makeInfix, infixOps)
 
 
 // prefix
@@ -24,12 +26,16 @@ var makePrefix = function(op){
     return Function('a', 'return ' + op + ' a')
 }
 
-var prefix = prefixOps.reduce(function(prefix, op) {
-	prefix[op] = makePrefix(op)
-	return prefix
-}, {})
+var prefix = opsToObj(makePrefix, prefixOps)
 
-// postfix omitted because they're useless in this form
+// postfix
+var postfixOps = '()'.split(' ')
+
+var makePostfix = function(op){
+    return Function('a', 'return a ' + op);
+}
+
+var postfix = opsToObj(makePostfix, postfixOps)
 
 // ternary-if operator ?:. does not short-circuit.
 var ternary = function(condVal, ifVal, elseVal) {
@@ -51,7 +57,7 @@ var lift = function(op){
     if ( op === '+' )       return plus
     else if ( op === '-' )  return minus
     else if ( op === '?:' ) return ternary
-    else                    return prefix[op] || infix[op]
+    else                    return prefix[op] || infix[op] || postfix[op]
 }
 
 // export
